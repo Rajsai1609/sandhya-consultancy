@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Link from "next/link";
 import { getAllApplications } from "@/lib/data";
 import type { Prisma } from "@prisma/client";

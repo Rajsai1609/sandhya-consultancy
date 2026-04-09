@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sandhya IT Consulting
 
-## Getting Started
+Corporate website and admin portal for Sandhya IT Consulting — an IT staffing, services, and training company.
 
-First, run the development server:
+## Project Overview
+
+Full-stack Next.js application featuring:
+- **Public site** — Home, Services, Staffing, Careers, Academy, Products, Contact
+- **Admin portal** — Job management, application tracking, dashboard (HTTP Basic Auth protected)
+- **Job board** — Dynamic listings, per-job application forms with resume upload
+- **Contact system** — Contact form with email notifications
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Language | TypeScript |
+| Database | PostgreSQL (via Docker locally) |
+| ORM | Prisma 7 with `@prisma/adapter-pg` |
+| Styling | Tailwind CSS |
+| Email | Nodemailer (SMTP) |
+| File storage | Local filesystem (`/public/uploads`) |
+| Deployment | Vercel |
+
+## Local Setup
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/your-org/sandhyaitconsulting.git
+cd sandhyaitconsulting
+
+# 2. Install dependencies
+npm install
+
+# 3. Copy environment variables
+cp .env.example .env.local
+# Edit .env.local and fill in all required values
+
+# 4. Start PostgreSQL via Docker
+docker compose up -d
+
+# 5. Run database migrations
+npx prisma migrate dev
+
+# 6. (Optional) Seed initial data
+npx prisma db seed
+
+# 7. Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
+Admin portal is at [http://localhost:3000/admin](http://localhost:3000/admin).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file at the project root with the following variables:
 
-## Learn More
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@localhost:5432/sandhyait` |
+| `ADMIN_USERNAME` | HTTP Basic Auth username for `/admin` | `admin` |
+| `ADMIN_PASSWORD` | HTTP Basic Auth password for `/admin` | `your-strong-password` |
+| `SMTP_HOST` | SMTP server hostname | `smtp.gmail.com` |
+| `SMTP_PORT` | SMTP server port | `587` |
+| `SMTP_USER` | SMTP username / sender address | `noreply@sandhyait.com` |
+| `SMTP_PASS` | SMTP password or app password | `app-specific-password` |
+| `SMTP_FROM` | Display name + address for outgoing mail | `Sandhya IT <noreply@sandhyait.com>` |
+| `CONTACT_EMAIL` | Inbox that receives contact form submissions | `info@sandhyait.com` |
+| `NEXT_PUBLIC_SITE_URL` | Canonical public URL (no trailing slash) | `https://sandhyaitconsulting.com` |
+| `UPLOAD_DIR` | Server path for resume uploads | `./public/uploads` |
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment (Vercel)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push the repository to GitHub.
+2. Import the project at [vercel.com/new](https://vercel.com/new).
+3. Add all environment variables from the table above in the Vercel dashboard under **Settings → Environment Variables**.
+4. Set the **Production** branch to `main`.
+5. Vercel will run `npm run build` automatically on each push.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> **Database**: Provision a managed PostgreSQL instance (e.g., Vercel Postgres, Supabase, Neon) and update `DATABASE_URL` accordingly. Run `npx prisma migrate deploy` as a post-build or release command.
 
-## Deploy on Vercel
+## Admin Access
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The admin portal at `/admin` is protected by HTTP Basic Auth (configured via `ADMIN_USERNAME` / `ADMIN_PASSWORD`).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Page | URL | Description |
+|------|-----|-------------|
+| Dashboard | `/admin` | Stats overview + recent applications |
+| Jobs list | `/admin/jobs` | All jobs with status badges |
+| New job | `/admin/jobs/new` | Create a job posting |
+| Edit job | `/admin/jobs/[id]/edit` | Edit an existing job |
+| Applications | `/admin/applications` | All applications, filterable by stage |
+| Application detail | `/admin/applications/[id]` | View applicant info, update stage, add notes |
+
+Application stages: **new → reviewing → shortlisted → rejected / hired**

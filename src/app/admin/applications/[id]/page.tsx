@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { notFound } from "next/navigation";
 import { getApplicationById } from "@/lib/data";
 import { updateApplicationStage, addApplicationNote } from "@/app/admin/actions";
