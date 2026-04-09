@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Service {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  longDesc    String?
+  category    String
+  icon        String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Industry {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  icon        String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Job {
+  id             String           @id @default(cuid())
+  slug           String           @unique
+  title          String
+  department     String
+  location       String
+  employmentType String
+  description    String
+  requirements   String
+  status         String           @default("open")
+  applications   JobApplication[]
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+}
+
+model JobApplication {
+  id          String   @id @default(cuid())
+  job         Job      @relation(fields: [jobId], references: [id])
+  jobId       String
+  name        String
+  email       String
+  phone       String?
+  resumeUrl   String?
+  coverLetter String?
+  stage       String   @default("new")
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ResumeSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  resumeUrl String?
+  message   String?
+  createdAt DateTime @default(now())
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  message   String
+  createdAt DateTime @default(now())
+}
