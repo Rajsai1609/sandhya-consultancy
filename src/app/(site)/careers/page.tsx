@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/lib/site-config";
 import { getAllJobs } from "@/lib/data";
-import { FaBriefcase, FaMapMarkerAlt, FaClock } from "react-icons/fa";
+import { FaBriefcase, FaMapMarkerAlt, FaClock, FaPassport } from "react-icons/fa";
 
 export const metadata: Metadata = {
   title: `Careers | ${siteConfig.name}`,
@@ -96,6 +96,10 @@ export default async function CareersPage() {
                         {job.employmentType}
                       </span>
                     )}
+                    <span className="flex items-center gap-1.5 text-xs font-medium rounded-full px-3 py-1 bg-amber-50 text-amber-700">
+                      <FaPassport size={10} />
+                      Visa sponsorship available
+                    </span>
                   </div>
                 </Link>
               ))}
