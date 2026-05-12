@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/site-config";
 import type { NavLink } from "@/lib/site-config";
-import { FaBars, FaTimes, FaCode, FaChevronDown } from "react-icons/fa";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -50,9 +51,12 @@ export default function Navbar() {
             href="/"
             className="flex items-center gap-2 flex-shrink-0"
           >
-            <FaCode
-              className="text-xl"
-              style={{ color: "var(--brand-blue)" }}
+            <Image
+              src="/logo.jpg"
+              alt="Sandhya IT Consulting"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-full object-cover"
             />
             <span
               className="font-bold text-base leading-tight hidden sm:block"

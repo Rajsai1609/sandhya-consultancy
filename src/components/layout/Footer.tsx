@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
-import { FaCode, FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaLinkedin, FaTwitter, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { siteConfig } from "@/lib/site-config";
 
 const serviceLinks = [
@@ -30,7 +31,13 @@ export default function Footer() {
           {/* Col 1 — Brand */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <FaCode className="text-xl" style={{ color: "var(--brand-blue)" }} />
+              <Image
+                src="/logo.jpg"
+                alt="Sandhya IT Consulting"
+                width={56}
+                height={56}
+                className="h-14 w-14 rounded-full object-cover"
+              />
               <span className="font-bold text-white text-base leading-tight">
                 Sandhya IT Consulting
               </span>
