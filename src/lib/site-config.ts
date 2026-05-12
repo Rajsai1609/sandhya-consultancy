@@ -14,7 +14,7 @@ export const siteConfig = {
   name: "Sandhya IT Consulting",
   tagline: "AI-Powered Staffing, Consulting & Career Automation",
   description:
-    "We help students land jobs faster with AI career automation, and help businesses scale with intelligent automation and multi-agent systems.",
+    "AI-Powered Staffing, Consulting & Career Automation. We help students land jobs with AI and help businesses scale with intelligent automation.",
   url:
     process.env.NEXT_PUBLIC_SITE_URL || "https://sandhyaitconsulting.com",
   contact: {
