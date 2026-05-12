@@ -15,13 +15,22 @@ export async function POST(req: NextRequest) {
     }
 
     await createContactSubmission(parsed.data);
-    await sendContactEmail(parsed.data);
+
+    try {
+      await sendContactEmail(parsed.data);
+    } catch (emailErr) {
+      console.error("[contact] email notification failed", emailErr);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("[contact]", err);
+    console.error("[contact] db save failed", err);
     return NextResponse.json(
-      { success: false, error: "Something went wrong. Please try again." },
+      {
+        success: false,
+        error:
+          "We couldn't save your message right now. Please try again or email us directly at info@sandhyaitconsulting.com.",
+      },
       { status: 500 }
     );
   }

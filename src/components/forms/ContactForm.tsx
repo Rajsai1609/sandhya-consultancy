@@ -45,9 +45,8 @@ export default function ContactForm() {
   if (status === "success") {
     return (
       <div className="rounded-xl border border-green-200 bg-green-50 p-8 text-center">
-        <p className="font-semibold text-green-800 text-lg">Message sent!</p>
-        <p className="mt-1 text-sm text-green-700">
-          Thank you for reaching out. We&apos;ll get back to you within one business day.
+        <p className="font-semibold text-green-800 text-lg">
+          Thanks! We&apos;ve received your message and will get back to you within 24 hours.
         </p>
       </div>
     );

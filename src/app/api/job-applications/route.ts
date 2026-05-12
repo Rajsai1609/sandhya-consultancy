@@ -74,17 +74,24 @@ export async function POST(req: NextRequest) {
     const applicationData = { ...parsed.data, jobId, resumeUrl };
     await createJobApplication(applicationData);
 
-    // Send notification email
-    const job = await prisma.job.findUnique({ where: { id: jobId }, select: { title: true } });
-    if (job) {
-      await sendJobApplicationEmail(parsed.data, job.title);
+    try {
+      const job = await prisma.job.findUnique({ where: { id: jobId }, select: { title: true } });
+      if (job) {
+        await sendJobApplicationEmail(parsed.data, job.title);
+      }
+    } catch (emailErr) {
+      console.error("[job-applications] email notification failed", emailErr);
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("[job-applications]", err);
+    console.error("[job-applications] db save failed", err);
     return NextResponse.json(
-      { success: false, error: "Something went wrong. Please try again." },
+      {
+        success: false,
+        error:
+          "We couldn't save your application right now. Please try again or email us directly at info@sandhyaitconsulting.com.",
+      },
       { status: 500 }
     );
   }
