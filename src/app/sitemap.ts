@@ -7,7 +7,8 @@ const base = siteConfig.url;
 const STATIC_ROUTES: MetadataRoute.Sitemap = [
   { url: base, priority: 1.0, changeFrequency: "weekly" },
   { url: `${base}/services`, priority: 0.9, changeFrequency: "weekly" },
-  { url: `${base}/industries`, priority: 0.8, changeFrequency: "monthly" },
+  { url: `${base}/ai-products`, priority: 0.8, changeFrequency: "monthly" },
+  { url: `${base}/for-employees`, priority: 0.7, changeFrequency: "monthly" },
   { url: `${base}/staffing`, priority: 0.8, changeFrequency: "monthly" },
   { url: `${base}/products`, priority: 0.8, changeFrequency: "monthly" },
   { url: `${base}/academy`, priority: 0.8, changeFrequency: "monthly" },

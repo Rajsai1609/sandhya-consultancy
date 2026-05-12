@@ -72,7 +72,7 @@ export default function ContactPage() {
                     <div>
                       <p className="text-sm font-medium text-gray-900">Phone</p>
                       <a
-                        href={`tel:${siteConfig.contact.phone}`}
+                        href={`tel:${siteConfig.contact.phone.replace(/\s/g, "")}`}
                         className="text-sm"
                         style={{ color: "var(--brand-blue)" }}
                       >
